@@ -1,5 +1,6 @@
 import mysql.connector
-import utils.TestConnection
+#from utils.TestConnection import coxenao
+
 # abir conexao com o banco de dados
 connection = mysql.connector.connect(
     host="localhost",

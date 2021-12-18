@@ -7,9 +7,9 @@ def coxenao():
         user="root",
         password="root",
         database="teste",
-
     )
 
+def conexao_estabelecida(connection):
     if connection.is_connected():
         db_info = connection.get_server_info()
         print("Conectado ao servidor MYSQL versao" , db_info)
@@ -17,10 +17,12 @@ def coxenao():
         cursor.execute("select database();")
         linha = cursor.fetchone()
         print("Conectado ao banco e dados")
+
+def conexao_encerrada(connection, cursor):
     if connection.is_connected():
         cursor.close()
         connection.close()
-        print("Conectado ao servidor MYSQL foi encerrada")
-
+        print("Conexao ao servidor MYSQL foi encerrada")
 
 coxenao()
+
