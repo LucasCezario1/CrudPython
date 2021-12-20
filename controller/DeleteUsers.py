@@ -1,26 +1,23 @@
-import mysql.connector
-import datetime
+from utils.TestConnection import coxenao, conexao_encerrada, conexao_estabelecida
 
 # abir conexao com o banco de dados
-connection = mysql.connector.connect(
-    host="localhost",
-    port="3306",
-    user="root",
-    password="root",
-    database="teste",
-)
+connection = coxenao()
 
 cursor = connection.cursor()
 
 sql = "DELETE FROM users WHERE id = %s"
-data = (4,)
+data = (8,)
+
+# estabelece conexao com o banco de dados
+conexao_estabelecida(connection)
 
 cursor.execute(sql, data)
 connection.commit()
 
 recordsaffected = cursor.rowcount
 
-cursor.close()
-connection.close()
 
 print(recordsaffected," regsitro excluido com sucessso")
+
+# encerra conexao com o banco de dados
+conexao_encerrada(connection, cursor)

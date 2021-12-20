@@ -1,17 +1,16 @@
-import mysql.connector
-import datetime
+from utils.TestConnection import coxenao, conexao_encerrada, conexao_estabelecida
+
 # abir conexao com o banco de dados
-connection = mysql.connector.connect(
-    host="localhost",
-    port="3306",
-    user="root",
-    password="root",
-    database="teste",
-)
+connection = coxenao()
 
 cursor = connection.cursor()
 
 sql = "UPDATE users SET name = %s, email = %s WHERE id = %s"
+
+
+# estabelece conexao com o banco de dados
+conexao_estabelecida(connection)
+
 data = (
   'Primeiro Usuário Editado',
   'primeirousuarioeditado@teste.com.br',
@@ -23,7 +22,9 @@ connection.commit()
 
 recordsaffected = cursor.rowcount
 
-cursor.close()
-connection.close()
 
 print(recordsaffected, " registros alterados")
+
+
+# encerra conexao com o banco de dados
+conexao_encerrada(connection, cursor)

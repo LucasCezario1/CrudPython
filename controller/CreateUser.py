@@ -1,25 +1,20 @@
 import mysql.connector
 import datetime
-
+from utils.TestConnection import coxenao, conexao_encerrada, conexao_estabelecida
 
 #abir conexao com o banco de dados 
-connection = mysql.connector.connect(
-    host="localhost",
-    port="3306",
-    user="root",
-    password="root",
-    database="teste",
-
-)
+connection = coxenao()
 
 #vai no banco e conecat com o banco 
 cursor = connection.cursor(dictionary=True)
 
 sql ="INSERT INTO users(name, email,created) VALUES(%s, %s, %s)"  #sql de insercao no banco
 
+conexao_estabelecida(connection)
+
 #paldoy que vai passar pro banco com a query de criacao
 data=(
-    'outro Usuario',
+    ' Usuario',
     'primeiro@test.com',
     datetime.datetime.today()
 )
@@ -30,7 +25,8 @@ connection.commit() #efetiva a query no banco
 
 userid = cursor.lastrowid
 
-cursor.close() #fecha o script do pyton
-connection.close() #fecha conexao com o banco e dados
 
 print("O usuario foi cadastrado com sucesso com ID: ", userid)
+
+
+conexao_encerrada(connection,cursor)
