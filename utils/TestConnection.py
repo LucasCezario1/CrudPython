@@ -8,6 +8,7 @@ def coxenao():
         password="root",
         database="teste",
     )
+    return connection
 
 def conexao_estabelecida(connection):
     if connection.is_connected():
@@ -20,9 +21,10 @@ def conexao_estabelecida(connection):
 
 def conexao_encerrada(connection, cursor):
     if connection.is_connected():
+        print("Conexao ao servidor MYSQL foi encerrada")
         cursor.close()
         connection.close()
-        print("Conexao ao servidor MYSQL foi encerrada")
 
-coxenao()
+
+
 
